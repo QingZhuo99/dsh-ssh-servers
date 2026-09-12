@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Local secrets — never commit credentials of any kind
+.env
+.env.*
+*.pem
+*.key
+
+# Runtime state (the real store lives in $DSH_HOME, outside this repository)
+profiles.json
+*.log

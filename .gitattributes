@@ -1,0 +1,4 @@
+# Normalise line endings: LF in the repository and in every working tree.
+# Without this, the Git-for-Windows default (core.autocrlf=true) rewrites these
+# files to CRLF on checkout and every cross-platform diff shows whole-file churn.
+* text=auto eol=lf

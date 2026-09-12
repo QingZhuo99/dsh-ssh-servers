@@ -1,0 +1,9 @@
+# Host-plane row for dsh-ssh-servers.
+#
+# The row publishes no service of its own: it registers model Tools into the
+# host `tools` registry and HTTP routes into the host `webServer`, so it sits
+# on the host plane rather than behind an isolate realm. Session state is
+# per-connection and lives inside the row's own fiber.
+- insert:
+    - id: dsh-ssh-servers
+      name: dsh-ssh-servers
