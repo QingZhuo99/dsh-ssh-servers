@@ -313,6 +313,13 @@ export function apply(ctx) {
                     `工作目录=${connection.remoteCwd} 已执行 ${connection.execCount} 条命令`,
                 )
               }
+              if (connections.length > 1) {
+                lines.push('')
+                lines.push(
+                  '同时打开了多条连接：调用 ssh_exec / ssh_read_file / ssh_write_file / ssh_list_dir 时' +
+                    '必须带 server 参数，取值可以是上面的名称或 id。',
+                )
+              }
             }
             return lines.join('\n')
           },

@@ -1,6 +1,6 @@
 {
   "name": "dsh-ssh-servers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Human-gated SSH connections for DeepSeek Harness: save server profiles, let the user log in by hand, and give the agent a remote workspace.",
   "type": "module",

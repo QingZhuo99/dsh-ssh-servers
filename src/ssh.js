@@ -135,17 +135,25 @@ export class SshManager {
   }
 
   /**
-   * Resolve "which server does this tool call mean". With one connection the
+   * Resolve "which server does this tool call mean". The argument accepts a
+   * profile id or a saved profile's LABEL — the tool descriptions promise both,
+   * and the label is what the human sees in the panel. With one connection the
    * argument is optional; with several it is required, so an ambiguous request
    * fails loudly instead of guessing.
    */
   resolve(profileId) {
-    if (typeof profileId === 'string' && profileId.length > 0) {
-      const found = this.#connections.get(profileId)
-      if (found === undefined) {
-        throw new Error(`no live connection for server "${profileId}". Ask the user to log in to it first.`)
+    if (typeof profileId === 'string' && profileId.trim().length > 0) {
+      const key = profileId.trim()
+      const byId = this.#connections.get(key)
+      if (byId !== undefined) return byId
+
+      const byLabel = [...this.#connections.values()].filter((connection) => connection.profile.label === key)
+      if (byLabel.length === 1) return byLabel[0]
+      if (byLabel.length > 1) {
+        const ids = byLabel.map((connection) => connection.profile.id).join(', ')
+        throw new Error(`several open connections are named "${key}"; address one by its id instead: ${ids}`)
       }
-      return found
+      throw new Error(`no live connection for server "${key}". Ask the user to log in to it first.`)
     }
     if (this.#connections.size === 1) return [...this.#connections.values()][0]
     if (this.#connections.size === 0) {
